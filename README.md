@@ -1,6 +1,6 @@
 # Agentic Slash Commands
 
-A collection of intelligent slash commands for AI coding assistants ([Claude Code](https://claude.ai/code), Codex, Gemini CLI) optimised for JavaScript/TypeScript development workflows. Each command uses smart detection to identify project configuration and automatically execute appropriate tools with your preferred package manager.
+A collection of intelligent slash commands for AI coding assistants including [Claude Code](https://claude.ai/code), [Codex](https://openai.com/codex/), and [Gemini CLI](https://github.com/google-gemini/gemini-cli). Optimised for JavaScript/TypeScript development workflows, each command uses smart detection to identify project configuration and automatically execute appropriate tools with your preferred package manager.
 
 **Multi-Platform Support**: Write commands once, use them across Claude Code, Codex, and Gemini CLI with platform-specific installers.
 
@@ -66,7 +66,7 @@ A collection of intelligent slash commands for AI coding assistants ([Claude Cod
 
 Install commands for Claude Code, Codex, and Gemini CLI in one step:
 
-```bash
+```zsh
 git clone https://github.com/ruchernchong/agentic-slash-commands.git $HOME/agentic-slash-commands
 cd $HOME/agentic-slash-commands
 chmod +x install.sh
@@ -84,24 +84,24 @@ Commands will be immediately available globally across all projects.
 
 To install for a specific platform only:
 
-```bash
+```zsh
 cd $HOME/agentic-slash-commands
 
 # Claude Code only
-bash scripts/install-claude.sh
+zsh scripts/install-claude.sh
 
 # Codex only
-bash scripts/install-codex.sh
+zsh scripts/install-codex.sh
 
 # Gemini CLI only
-bash scripts/install-gemini.sh
+zsh scripts/install-gemini.sh
 ```
 
 ### Updating Commands
 
 To update to the latest version across all platforms:
 
-```bash
+```zsh
 cd $HOME/agentic-slash-commands
 git pull
 ```
@@ -122,11 +122,13 @@ Simply type `/` followed by the command name in your AI coding assistant:
 
 **Codex:**
 ```
-/build
-/test
-/lint
-/setup
+/build  (autocompletes to /prompt:build)
+/test   (autocompletes to /prompt:test)
+/lint   (autocompletes to /prompt:lint)
+/setup  (autocompletes to /prompt:setup)
 ```
+
+Note: Codex commands use the `/prompt:` prefix, but typing `/command-name` will autocomplete accordingly.
 
 **Gemini CLI:**
 Commands work the same way after conversion to .toml format.
@@ -192,7 +194,7 @@ Each command file uses this format:
 
 ```yaml
 ---
-description: Command description shown in Claude Code
+description: Command description shown in AI coding assistants
 allowed-tools: List of tools the command can use
 ---
 
@@ -220,7 +222,7 @@ This repository includes comprehensive testing infrastructure to ensure command 
 
 ### Running Tests
 
-```bash
+```zsh
 cd tests
 ./run-tests.sh
 ```
@@ -274,8 +276,8 @@ The CI/CD pipeline will automatically validate your changes.
 
 ## License
 
-MIT
+[MIT](LICENSE)
 
 ## Acknowledgements
 
-Built for [Claude Code](https://claude.ai/code) by Anthropic.
+Originally built for [Claude Code](https://claude.ai/code) by Anthropic, now supporting multiple AI coding assistant platforms.
