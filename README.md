@@ -59,12 +59,12 @@ A collection of intelligent slash commands for [Claude Code](https://claude.ai/c
 
 1. Clone this repository to a permanent location:
    ```bash
-   git clone https://github.com/ruchernchong/claude-commands.git $HOME/.claude-commands
+   git clone https://github.com/ruchernchong/agentic-slash-commands.git $HOME/agentic-slash-commands
    ```
 
 2. Run the installation script to create symlinks:
    ```bash
-   cd $HOME/.claude-commands
+   cd $HOME/agentic-slash-commands
    chmod +x install.sh
    ./install.sh
    ```
@@ -76,25 +76,11 @@ A collection of intelligent slash commands for [Claude Code](https://claude.ai/c
 To update to the latest version:
 
 ```bash
-cd $HOME/.claude-commands
+cd $HOME/agentic-slash-commands
 git pull
 ```
 
 No need to reinstall - the symlinks will automatically reflect the updates!
-
-### Manual Installation
-
-If you prefer to manage commands per-project:
-
-1. Copy the `.md` files to your project's `.claude/commands/` directory:
-   ```bash
-   cp $HOME/.claude-commands/*.md /path/to/your/project/.claude/commands/
-   ```
-
-2. (Optional) Copy the `CLAUDE.md` file to your project root for project-specific guidance:
-   ```bash
-   cp $HOME/.claude-commands/CLAUDE.md /path/to/your/project/
-   ```
 
 ## Usage
 
@@ -129,7 +115,22 @@ Each command:
 
 ## Command Architecture
 
-Commands are defined using markdown files with YAML frontmatter:
+Commands are organised in the `commands/` directory and defined using markdown files with YAML frontmatter:
+
+```
+.
+├── commands/          # All slash command definitions
+│   ├── build.md
+│   ├── test.md
+│   └── ...
+├── scripts/           # Helper scripts
+│   └── commit
+├── CLAUDE.md          # Project guidance for Claude Code
+├── README.md
+└── install.sh         # Symlink installer
+```
+
+Each command file uses this format:
 
 ```yaml
 ---

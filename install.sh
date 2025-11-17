@@ -63,19 +63,13 @@ create_symlink() {
     fi
 }
 
-# Install command files (.md files excluding README.md and CLAUDE.md)
+# Install command files (.md files from commands/ directory)
 echo -e "${BLUE}📦 Installing slash commands:${NC}"
-for file in "$COMMANDS_DIR"/*.md; do
+for file in "$COMMANDS_DIR"/commands/*.md; do
     # Skip if no .md files found
     [ -e "$file" ] || continue
 
     filename=$(basename "$file")
-
-    # Skip documentation files
-    if [[ "$filename" == "README.md" ]] || \
-       [[ "$filename" == "CLAUDE.md" ]]; then
-        continue
-    fi
 
     # Create symlink for command file
     create_symlink "$file" "$filename"
@@ -99,13 +93,10 @@ if [ $INSTALLED -gt 0 ] || [ $SKIPPED -gt 0 ]; then
     echo -e "${GREEN}🎉 Installation complete!${NC}"
     echo ""
     echo "Available commands in Claude Code:"
-    for file in "$COMMANDS_DIR"/*.md; do
+    for file in "$COMMANDS_DIR"/commands/*.md; do
         [ -e "$file" ] || continue
         filename=$(basename "$file" .md)
-        if [[ "$filename" != "README" ]] && \
-           [[ "$filename" != "CLAUDE" ]]; then
-            echo "  • /${filename}"
-        fi
+        echo "  • /${filename}"
     done
     echo ""
     echo -e "${BLUE}💡 Tip: To update commands, run 'git pull' in ${COMMANDS_DIR}${NC}"

@@ -11,8 +11,8 @@ This is a collection of intelligent Claude Code commands optimised for JavaScrip
 This repository is designed to be cloned once and symlinked to `$HOME/.claude/commands/` for global access across all projects:
 
 ```bash
-git clone https://github.com/ruchernchong/claude-commands.git $HOME/.claude-commands
-cd $HOME/.claude-commands
+git clone https://github.com/ruchernchong/agentic-slash-commands.git $HOME/agentic-slash-commands
+cd $HOME/agentic-slash-commands
 chmod +x install.sh
 ./install.sh
 ```
@@ -25,7 +25,7 @@ chmod +x install.sh
 
 ### Updating
 ```bash
-cd $HOME/.claude-commands
+cd $HOME/agentic-slash-commands
 git pull
 ```
 
@@ -59,6 +59,17 @@ This ensures commands integrate seamlessly with any project's established conven
 
 ## Command Architecture
 
+### Directory Structure
+Commands are organised in a clean, flat structure:
+```
+.
+├── commands/          # All slash command definitions (.md files)
+├── scripts/           # Helper scripts (e.g., commit)
+├── CLAUDE.md          # This file - project guidance
+├── README.md          # User documentation
+└── install.sh         # Symlink installer for global access
+```
+
 ### Smart Detection System
 Each command follows a pattern of:
 1. **Project Detection**: Analyze package.json and lock files (pnpm-lock.yaml, bun.lockb, yarn.lock, package-lock.json)
@@ -75,13 +86,15 @@ Commands automatically handle:
 - **Frameworks**: React, Vue, Angular, Svelte detection
 
 ### Command Definition Format
-Commands are defined in markdown files with YAML frontmatter:
+Commands are defined in markdown files within the `commands/` directory, using YAML frontmatter:
 ```yaml
 ---
 description: Command description
 allowed-tools: List of permitted tools
 ---
 ```
+
+All command files are stored in `commands/` for easy organisation and maintenance.
 
 ## Development Workflow
 
