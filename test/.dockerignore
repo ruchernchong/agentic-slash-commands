@@ -1,0 +1,6 @@
+# Ignore files that don't need to be in Docker build context
+.git
+.github
+node_modules
+.DS_Store
+*.log
