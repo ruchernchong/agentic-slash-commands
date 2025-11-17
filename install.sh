@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Universal installer for agentic slash commands
-# Installs commands for Claude Code, Codex, and Gemini CLI
+# Installs commands for Claude Code and Codex (Gemini CLI disabled)
 
 set -e
 
@@ -13,7 +13,8 @@ echo -e "${BLUE}╔════════════════════�
 echo -e "${BLUE}║  Agentic Slash Commands - Universal Installer ║${NC}"
 echo -e "${BLUE}╚═══════════════════════════════════════════════╝${NC}"
 echo ""
-echo -e "${BLUE}Installing commands for all supported platforms...${NC}"
+echo -e "${BLUE}Installing commands for supported platforms...${NC}"
+echo -e "${YELLOW}Note: Gemini CLI installation is currently disabled${NC}"
 echo ""
 
 # Track overall success
@@ -33,7 +34,7 @@ echo ""
 
 # Install for Codex
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${BLUE}2/3: Codex${NC}"
+echo -e "${BLUE}2/2: Codex${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 if bash "$SCRIPT_DIR/scripts/install-codex.sh"; then
     ((TOTAL_SUCCESS++))
@@ -42,25 +43,25 @@ else
 fi
 echo ""
 
-# Install for Gemini CLI
-echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${BLUE}3/3: Gemini CLI${NC}"
-echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-if bash "$SCRIPT_DIR/scripts/install-gemini.sh"; then
-    ((TOTAL_SUCCESS++))
-else
-    ((TOTAL_FAILED++))
-fi
-echo ""
+# Install for Gemini CLI (DISABLED)
+# echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+# echo -e "${BLUE}3/3: Gemini CLI${NC}"
+# echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+# if bash "$SCRIPT_DIR/scripts/install-gemini.sh"; then
+#     ((TOTAL_SUCCESS++))
+# else
+#     ((TOTAL_FAILED++))
+# fi
+# echo ""
 
 # Final summary
 echo -e "${BLUE}╔═══════════════════════════════════════════════╗${NC}"
 echo -e "${BLUE}║            Installation Summary                ║${NC}"
 echo -e "${BLUE}╚═══════════════════════════════════════════════╝${NC}"
 echo ""
-echo -e "${GREEN}✓  Successful platforms: ${TOTAL_SUCCESS}/3${NC}"
+echo -e "${GREEN}✓  Successful platforms: ${TOTAL_SUCCESS}/2${NC}"
 if [ $TOTAL_FAILED -gt 0 ]; then
-    echo -e "${RED}✗  Failed platforms:     ${TOTAL_FAILED}/3${NC}"
+    echo -e "${RED}✗  Failed platforms:     ${TOTAL_FAILED}/2${NC}"
 fi
 echo ""
 echo -e "${GREEN}🎉 Universal installation complete!${NC}"
@@ -68,7 +69,7 @@ echo ""
 echo -e "${BLUE}Next steps:${NC}"
 echo -e "${BLUE}  • Claude Code: Ready to use${NC}"
 echo -e "${BLUE}  • Codex: Ready to use${NC}"
-echo -e "${BLUE}  • Gemini CLI: Convert commands to .toml format${NC}"
+# echo -e "${BLUE}  • Gemini CLI: Convert commands to .toml format${NC}"
 echo ""
 echo -e "${BLUE}💡 To update commands across all platforms:${NC}"
 echo -e "${BLUE}   cd ${SCRIPT_DIR} && git pull && bash install.sh${NC}"
