@@ -27,7 +27,7 @@ create_symlink() {
     if [ -L "$target_path" ]; then
         if [ "$(readlink "$target_path")" = "$source_file" ]; then
             echo -e "${YELLOW}⏭  Skipped: ${link_name} (already linked)${NC}"
-            ((SKIPPED++))
+            ((SKIPPED++)) || true
             return 0
         else
             echo -e "${YELLOW}⚠  Removing old symlink: ${link_name}${NC}"
@@ -35,18 +35,18 @@ create_symlink() {
         fi
     elif [ -e "$target_path" ]; then
         echo -e "${RED}✗  Failed: ${link_name} (file exists, not a symlink)${NC}"
-        ((FAILED++))
+        ((FAILED++)) || true
         return 1
     fi
 
     # Create symlink
     if ln -s "$source_file" "$target_path"; then
         echo -e "${GREEN}✓  Installed: ${link_name}${NC}"
-        ((INSTALLED++))
+        ((INSTALLED++)) || true
         return 0
     else
         echo -e "${RED}✗  Failed: ${link_name}${NC}"
-        ((FAILED++))
+        ((FAILED++)) || true
         return 1
     fi
 }
@@ -66,7 +66,7 @@ cleanup_symlinks() {
     for link in "$dir"/*.md; do
         [ -L "$link" ] || continue
         rm "$link"
-        ((removed++))
+        ((removed++)) || true
     done
 
     if [ $removed -gt 0 ]; then
@@ -95,9 +95,21 @@ print_summary() {
 list_commands() {
     local commands_dir="$1"
     local prefix="$2"
+    shift 2
+    local selected=("$@")
 
     echo ""
     echo "Available commands:"
+
+    if [ ${#selected[@]} -gt 0 ]; then
+        for cmd in "${selected[@]}"; do
+            if [ -n "$cmd" ] && [ -f "${commands_dir}/${cmd}.md" ]; then
+                echo "  • ${prefix}${cmd}"
+            fi
+        done
+        return
+    fi
+
     for file in "$commands_dir"/*.md; do
         [ -e "$file" ] || continue
         filename=$(basename "$file" .md)
