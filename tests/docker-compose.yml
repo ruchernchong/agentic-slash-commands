@@ -3,7 +3,7 @@ services:
   claude:
     build:
       context: ..
-      dockerfile: test/Dockerfile
+      dockerfile: tests/Dockerfile
     container_name: agentic-claude
     volumes:
       - ..:/home/testuser/agentic-slash-commands
@@ -27,7 +27,7 @@ services:
   codex:
     build:
       context: ..
-      dockerfile: test/Dockerfile
+      dockerfile: tests/Dockerfile
     container_name: agentic-codex
     volumes:
       - ..:/home/testuser/agentic-slash-commands
@@ -51,7 +51,7 @@ services:
   universal:
     build:
       context: ..
-      dockerfile: test/Dockerfile
+      dockerfile: tests/Dockerfile
     container_name: agentic-universal
     volumes:
       - ..:/home/testuser/agentic-slash-commands
@@ -77,7 +77,7 @@ services:
   idempotent:
     build:
       context: ..
-      dockerfile: test/Dockerfile
+      dockerfile: tests/Dockerfile
     container_name: agentic-idempotent
     volumes:
       - ..:/home/testuser/agentic-slash-commands
@@ -104,7 +104,7 @@ services:
   symlinks:
     build:
       context: ..
-      dockerfile: test/Dockerfile
+      dockerfile: tests/Dockerfile
     container_name: agentic-symlinks
     volumes:
       - ..:/home/testuser/agentic-slash-commands
@@ -142,7 +142,7 @@ services:
   interactive:
     build:
       context: ..
-      dockerfile: test/Dockerfile
+      dockerfile: tests/Dockerfile
     container_name: agentic-interactive
     volumes:
       - ..:/home/testuser/agentic-slash-commands
