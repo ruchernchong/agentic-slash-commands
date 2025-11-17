@@ -21,8 +21,8 @@ chmod +x install.sh
 
 The universal installer will set up commands for:
 - **Claude Code**: Symlinks to `$HOME/.claude/commands/`
-- **Codex**: Symlinks to `$HOME/.codex/commands/`
-- **Gemini CLI**: Commands (require conversion to .toml format)
+- **Codex**: Symlinks to `$HOME/.codex/prompts/`
+- **Gemini CLI**: Currently disabled (experimental feature)
 
 ### Platform-Specific Installation
 
@@ -75,7 +75,8 @@ This ensures commands integrate seamlessly with any project's established conven
 
 ### Project Management
 - `/clean` - Safe cleanup of node_modules, dist/, build/, .pnpm-store, cache files
-- `/commit` or `./commit` - Smart git commit with balanced approach to change grouping
+- `/commit` - Smart git commit with balanced approach to change grouping
+- `/create-branch` - Create and checkout new git branch with smart validation and GitHub issue integration
 - `/create-issue` - GitHub issue creation with template support
 - `/create-pull-request` - Automated PR creation with commit analysis
 - `/update-docs` - Documentation maintenance for CLAUDE.md and README.md files
@@ -91,7 +92,15 @@ Commands are organised in a modular structure:
 │   ├── install-claude.sh    # Claude Code installer
 │   ├── install-codex.sh     # Codex installer
 │   ├── install-gemini.sh    # Gemini CLI installer
-│   └── commit               # Git commit helper script
+│   └── commit               # Standalone git commit helper script
+├── tests/             # Testing infrastructure
+│   ├── README.md      # Testing documentation
+│   ├── run-tests.sh   # Test runner script
+│   └── docker-compose.yml   # Docker-based test environment
+├── .github/           # GitHub workflows and templates
+│   ├── workflows/     # CI/CD automation
+│   │   └── tests.yml  # Automated testing workflow
+│   └── ISSUE_TEMPLATE/      # Issue templates
 ├── lib/               # Shared utilities and helpers
 │   └── helpers.sh     # Common bash functions for installers
 ├── CLAUDE.md          # This file - project guidance for Claude Code
@@ -151,7 +160,10 @@ All command files are stored in `commands/` for easy organisation and maintenanc
 
 ### For Git Workflow
 - Use `/commit` for balanced commit creation (keeps related changes together)
+- Use `/create-branch` to create new branches with automatic prefix detection (feature/, bugfix/, hotfix/, chore/, docs/)
 - Use `/create-pull-request` for automated PR creation with generated descriptions
+
+**Note**: The `/commit` command is the slash command for Claude Code. There's also a standalone `scripts/commit` bash script that provides similar functionality but can be used independently outside of Claude Code sessions.
 
 ## Configuration
 
@@ -171,3 +183,50 @@ Each command adapts to:
 - ESLint and Prettier configuration files
 - Testing framework configuration
 - Git repository state and GitHub templates
+
+## Testing
+
+This repository includes a comprehensive Docker-based testing infrastructure to validate commands across different environments.
+
+### Running Tests
+
+```bash
+# Run all tests (Docker + macOS if applicable)
+cd tests
+./run-tests.sh
+
+# Run specific test suites
+./run-tests.sh docker    # Docker-based tests only
+./run-tests.sh macos     # macOS tests only
+```
+
+### Test Coverage
+
+The test suite validates:
+- **Installation integrity**: Symlink creation and correctness
+- **Command validation**: All command files have proper YAML frontmatter
+- **Idempotence**: Repeated installations don't break existing setup
+- **Cross-platform**: Tests run on Alpine Linux (Docker) and macOS
+- **Package manager detection**: Validates pnpm/bun/yarn/npm detection logic
+
+See `tests/README.md` for detailed testing documentation.
+
+## CI/CD
+
+Automated workflows run on every push and pull request to ensure quality:
+
+### GitHub Actions Workflows
+
+**Location**: `.github/workflows/tests.yml`
+
+**Jobs**:
+1. **docker-tests**: Validates installation and commands in Alpine Linux container
+2. **macos-tests**: Tests on macOS environment
+3. **validate-commands**: Checks all command files for proper formatting
+
+**Features**:
+- Docker layer caching for faster builds
+- Pinned Actions to commit hashes for security
+- Automated validation on push/PR to main branch
+
+This ensures all commands work correctly across platforms before merging changes.

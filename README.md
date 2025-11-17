@@ -11,7 +11,8 @@ A collection of intelligent slash commands for AI coding assistants ([Claude Cod
 - **Framework Aware**: Recognises and adapts to React, Vue, Next.js, Nuxt, and more
 - **Zero Configuration**: Works out of the box with standard JavaScript/TypeScript projects
 - **Universal Installation**: One command installs for all supported platforms
-- **Consistent Conventions**: All documentation and code follows English (Singapore/UK) spelling
+- **Docker-Based Testing**: Comprehensive test suite validates commands across platforms
+- **CI/CD Integration**: Automated testing with GitHub Actions ensures quality
 
 ## Available Commands
 
@@ -74,8 +75,8 @@ chmod +x install.sh
 
 The universal installer will:
 - Install commands for **Claude Code** (`$HOME/.claude/commands/`)
-- Install commands for **Codex** (`$HOME/.codex/commands/`)
-- Install commands for **Gemini CLI** (requires conversion to .toml format)
+- Install commands for **Codex** (`$HOME/.codex/prompts/`)
+- Install commands for **Gemini CLI** (currently disabled - experimental feature)
 
 Commands will be immediately available globally across all projects.
 
@@ -171,7 +172,15 @@ Commands are organised in a modular structure supporting multiple platforms:
 │   ├── install-claude.sh    # Claude Code installer
 │   ├── install-codex.sh     # Codex installer
 │   ├── install-gemini.sh    # Gemini CLI installer
-│   └── commit               # Git commit helper script
+│   └── commit               # Standalone git commit helper
+├── tests/             # Testing infrastructure
+│   ├── README.md      # Testing documentation
+│   ├── run-tests.sh   # Test runner script
+│   └── docker-compose.yml   # Docker test environment
+├── .github/           # GitHub workflows and templates
+│   ├── workflows/
+│   │   └── tests.yml  # CI/CD automation
+│   └── ISSUE_TEMPLATE/
 ├── lib/               # Shared utilities
 │   └── helpers.sh     # Common bash functions for installers
 ├── CLAUDE.md          # Project guidance for Claude Code
@@ -205,21 +214,63 @@ Commands automatically adapt to:
 
 Permission management can be configured in `.claude/settings.local.json`.
 
-## Language Conventions
+## Testing
 
-This repository follows **English (Singapore/UK)** spelling conventions:
-- "organise" not "organize"
-- "optimise" not "optimize"
-- "behaviour" not "behavior"
-- "colour" not "color"
+This repository includes comprehensive testing infrastructure to ensure command quality across platforms.
+
+### Running Tests
+
+```bash
+cd tests
+./run-tests.sh
+```
+
+The test suite runs:
+- **Docker tests**: Validates installation in Alpine Linux containers
+- **macOS tests**: Tests native macOS environment
+- **Command validation**: Checks YAML frontmatter and file formatting
+- **Idempotence tests**: Ensures repeated installations work correctly
+
+See [`tests/README.md`](tests/README.md) for detailed testing documentation.
+
+## CI/CD
+
+All code changes are automatically validated through GitHub Actions:
+
+### Automated Workflows
+
+**Location**: `.github/workflows/tests.yml`
+
+**Validation Steps**:
+1. **Docker Tests**: Runs full test suite in containerised environment
+2. **macOS Tests**: Validates commands on macOS
+3. **Command Validation**: Checks all command files for proper formatting
+
+**Features**:
+- Runs on every push and pull request to `main`
+- Docker layer caching for faster builds
+- Security-hardened with pinned GitHub Actions
+
+This ensures all commands work correctly before merging changes.
 
 ## Contributing
 
 Contributions are welcome! Please ensure:
 - New commands follow the existing architecture pattern
-- Documentation uses English (SG/UK) spelling
 - Commands include smart detection where applicable
 - YAML frontmatter is properly formatted
+- All tests pass before submitting PR (`cd tests && ./run-tests.sh`)
+- GitHub Actions workflows pass successfully
+
+### Development Workflow
+
+1. Fork and clone the repository
+2. Make your changes in the `commands/` directory
+3. Run tests locally to validate: `cd tests && ./run-tests.sh`
+4. Commit your changes
+5. Push to your fork and submit a pull request
+
+The CI/CD pipeline will automatically validate your changes.
 
 ## License
 
