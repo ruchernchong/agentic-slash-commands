@@ -19,8 +19,8 @@ chmod +x install.sh
 ./install.sh
 ```
 
-The universal installer will set up commands for:
-- **Claude Code**: Symlinks to `$HOME/.claude/commands/`
+The universal installer will set up commands and skills for:
+- **Claude Code**: Symlinks to `$HOME/.claude/commands/` and `$HOME/.claude/skills/`
 - **Codex**: Symlinks to `$HOME/.codex/prompts/`
 - **Gemini CLI**: Currently disabled (experimental feature)
 
@@ -81,13 +81,25 @@ This ensures commands integrate seamlessly with any project's established conven
 - `/create-pull-request` - Automated PR creation with commit analysis
 - `/update-docs` - Documentation maintenance for CLAUDE.md and README.md files
 
+## Skills Available
+
+Skills are reusable capabilities that can be invoked programmatically by Claude Code. Unlike slash commands, skills provide specialized functionality that supports and enhances the slash commands in this repository.
+
+### Core Skills
+- `commit-message-generator` - Generates descriptive commit messages by analyzing staged changes (used by `/commit`)
+- `branch-name-validator` - Validates and suggests branch names following repository conventions (used by `/create-branch`)
+- `pr-description-generator` - Generates pull request descriptions by analyzing commits and changes (used by `/create-pull-request`)
+- `project-structure-analyzer` - Analyzes project structure to detect package managers, build tools, and testing frameworks (used by `/build`, `/test`, `/lint`, `/setup`)
+- `github-integration` - Handles GitHub API interactions for issues and pull requests (used by `/create-issue`, `/create-pull-request`)
+
 ## Command Architecture
 
 ### Directory Structure
-Commands are organised in a modular structure:
+Commands and skills are organised in a modular structure:
 ```
 .
 ├── commands/          # All slash command definitions (.md files)
+├── skills/            # Reusable skill definitions (.md files)
 ├── scripts/           # Platform-specific installers and helper scripts
 │   ├── install-claude.sh    # Claude Code installer
 │   ├── install-codex.sh     # Codex installer
@@ -123,8 +135,10 @@ Commands automatically handle:
 - **Linting**: ESLint with TypeScript support, Prettier formatting
 - **Frameworks**: React, Vue, Angular, Svelte detection
 
-### Command Definition Format
-Commands are defined in markdown files within the `commands/` directory, using YAML frontmatter:
+### Command and Skill Definition Format
+Both commands and skills are defined in markdown files using YAML frontmatter:
+
+**Commands** (stored in `commands/` directory):
 ```yaml
 ---
 description: Command description
@@ -132,7 +146,15 @@ allowed-tools: List of permitted tools
 ---
 ```
 
-All command files are stored in `commands/` for easy organisation and maintenance.
+**Skills** (stored in `skills/` directory):
+```yaml
+---
+description: Skill description
+allowed-tools: List of permitted tools
+---
+```
+
+The format is identical, but skills are designed to be reusable capabilities that can be invoked programmatically, while commands are user-facing slash commands.
 
 ## Development Workflow
 

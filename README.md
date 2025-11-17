@@ -76,6 +76,37 @@ platform-specific installers.
   - Updates CLAUDE.md and README.md
   - Keeps documentation in sync
 
+## 🎯 Available Skills
+
+Skills are reusable capabilities that can be invoked programmatically by Claude Code. Unlike slash commands, skills provide specialized functionality that supports and enhances the slash commands in this repository.
+
+### 🧠 Core Skills
+
+- **`commit-message-generator`** - Smart commit message generation
+  - Analyzes staged changes to generate descriptive messages
+  - Follows conventional commit format and repository patterns
+  - Used by `/commit` command
+
+- **`branch-name-validator`** - Branch naming validation
+  - Validates and suggests branch names following conventions
+  - Integrates with GitHub issues
+  - Used by `/create-branch` command
+
+- **`pr-description-generator`** - Pull request description generation
+  - Analyzes commit history to generate comprehensive PR descriptions
+  - Creates test plans and categorizes changes
+  - Used by `/create-pull-request` command
+
+- **`project-structure-analyzer`** - Project configuration analysis
+  - Detects package managers, build tools, and testing frameworks
+  - Provides structure information for intelligent command execution
+  - Used by `/build`, `/test`, `/lint`, and `/setup` commands
+
+- **`github-integration`** - GitHub API integration
+  - Handles issue and pull request creation via GitHub CLI
+  - Processes templates and manages repository interactions
+  - Used by `/create-issue` and `/create-pull-request` commands
+
 ## 💻 Installation
 
 ### 🌐 Universal Installation (All Platforms)
@@ -91,11 +122,11 @@ chmod +x install.sh
 
 The universal installer will:
 
-- Install commands for **Claude Code** (`$HOME/.claude/commands/`)
+- Install commands and skills for **Claude Code** (`$HOME/.claude/commands/` and `$HOME/.claude/skills/`)
 - Install commands for **Codex** (`$HOME/.codex/prompts/`)
 - Install commands for **Gemini CLI** (currently disabled - experimental feature)
 
-Commands will be immediately available globally across all projects.
+Commands and skills will be immediately available globally across all projects.
 
 ### 🎯 Platform-Specific Installation
 
@@ -114,7 +145,7 @@ zsh scripts/install-codex.sh
 zsh scripts/install-gemini.sh
 ```
 
-### 🔄 Updating Commands
+### 🔄 Updating Commands and Skills
 
 To update to the latest version across all platforms:
 
