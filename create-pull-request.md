@@ -5,10 +5,10 @@ allowed-tools: Bash(git status), Bash(git push), Bash(git log), Bash(git diff), 
 
 ## Language Conventions
 
-All PR titles and descriptions should use **English (Singapore)** or **English (UK)** spelling:
-- Use "s" instead of "z" (organise, optimise, analyse)
-- Use "our" endings (colour, behaviour, favour)
-- Use "re" endings (centre, metre)
+**Infer language style from the project:**
+- Analyze existing pull requests, commit messages, and documentation to detect the project's language variant (US English, UK English, etc.)
+- Match the spelling conventions found in the project (e.g., "optimize" vs "optimise", "favor" vs "favour")
+- Maintain consistency with the project's established language style throughout PR titles and descriptions
 
 ---
 

@@ -33,14 +33,14 @@ The symlinks automatically reflect any updates - no reinstallation needed.
 
 ## Language and Writing Conventions
 
-When working with this repository, all documentation, code comments, commit messages, and communication should use **English (Singapore)** or **English (UK)** spelling and conventions:
+Commands automatically adapt to the language conventions of the project they're being used in. When executing commands:
 
-- Use "s" instead of "z" in words like "organise", "optimise", "analyse"
-- Use "our" endings in words like "colour", "behaviour", "favour"
-- Use "re" endings in words like "centre", "metre"
-- Follow UK/SG date formats and terminology where applicable
+- **Infer from project context**: Analyse existing documentation, commit messages, and code comments to detect the project's language variant (US English, UK English, etc.)
+- **Match existing style**: Use the same spelling conventions found in the project (e.g., "organize" vs "organise", "color" vs "colour")
+- **Consistency within project**: Maintain the detected language style throughout command outputs and generated content
+- **Fallback to project defaults**: If no clear pattern is detected, follow the project's README or contributing guidelines
 
-This ensures consistency across all documentation and code in the repository.
+This ensures commands integrate seamlessly with any project's established conventions.
 
 ## Commands Available
 

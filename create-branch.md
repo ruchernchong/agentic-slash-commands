@@ -5,10 +5,10 @@ allowed-tools: Bash(git status), Bash(git branch), Bash(git checkout), Bash(git 
 
 ## Language Conventions
 
-All branch names, commit messages, and command outputs should use **English (Singapore)** or **English (UK)** spelling:
-- Use "s" instead of "z" (organise, optimise, analyse)
-- Use "our" endings (colour, behaviour, favour)
-- Use "re" endings (centre, metre)
+**Infer language style from the project:**
+- Analyze existing branches, commit messages, and documentation to detect the project's language variant (US English, UK English, etc.)
+- Match the spelling conventions found in the project (e.g., "synchronize" vs "synchronise", "center" vs "centre")
+- Maintain consistency with the project's established language style throughout branch names and command outputs
 
 ---
 
