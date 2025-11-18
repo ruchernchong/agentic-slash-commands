@@ -18,7 +18,7 @@ echo ""
 
 # Display warning about overwriting existing commands
 echo -e "${YELLOW}⚠️  WARNING: This installer will overwrite existing commands and skills!${NC}"
-echo -e "${YELLOW}   We will attempt to backup your existing content before overwriting.${NC}"
+echo -e "${YELLOW}   We will attempt to backup your existing slash commands before overwriting.${NC}"
 echo -e "${YELLOW}   Backups will be saved with a .bak extension.${NC}"
 echo -e "${YELLOW}   Do note that this is not guaranteed and you should have your own backup.${NC}"
 echo ""
