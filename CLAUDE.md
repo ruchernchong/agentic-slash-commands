@@ -12,7 +12,7 @@ This is a collection of intelligent agentic slash commands designed for multiple
 
 This repository is designed to be cloned once and symlinked globally for all supported platforms:
 
-```bash
+```zsh
 git clone https://github.com/ruchernchong/agentic-slash-commands.git $HOME/agentic-slash-commands
 cd $HOME/agentic-slash-commands
 chmod +x install.sh
@@ -28,15 +28,15 @@ The universal installer will set up commands and skills for:
 
 To install for a specific platform only:
 
-```bash
+```zsh
 # Claude Code only
-bash scripts/install-claude.sh
+zsh scripts/install-claude.sh
 
 # Codex only
-bash scripts/install-codex.sh
+zsh scripts/install-codex.sh
 
 # Gemini CLI only
-bash scripts/install-gemini.sh
+zsh scripts/install-gemini.sh
 ```
 
 ### Benefits of Symlink Approach
@@ -47,7 +47,7 @@ bash scripts/install-gemini.sh
 - **Multi-platform**: Install once, use with Claude Code, Codex, and Gemini CLI
 
 ### Updating
-```bash
+```zsh
 cd $HOME/agentic-slash-commands
 git pull
 ```
@@ -213,7 +213,7 @@ This repository includes a comprehensive Docker-based testing infrastructure to 
 
 ### Running Tests
 
-```bash
+```zsh
 # Run all tests (Docker + macOS if applicable)
 cd tests
 ./run-tests.sh
