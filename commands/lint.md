@@ -1,5 +1,6 @@
 ---
 description: Run linters and formatters for the project
+model: sonnet
 allowed-tools: Bash(npm run lint), Bash(npx eslint), Bash(prettier), Bash(ruff), Bash(black), Bash(cargo clippy), Bash(rustfmt), Bash(gofmt), Bash(golangci-lint), Read(*package.json), Read(*.eslintrc*), Read(*.prettierrc*), Read(*pyproject.toml)
 ---
 

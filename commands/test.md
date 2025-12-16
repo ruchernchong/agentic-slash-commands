@@ -1,5 +1,6 @@
 ---
 description: Smart test runner that detects and runs tests
+model: sonnet
 allowed-tools: Bash(npm test), Bash(npm run test), Bash(yarn test), Bash(pytest), Bash(cargo test), Bash(go test), Bash(mvn test), Bash(gradle test), Read(*package.json), Read(*Cargo.toml), Read(*go.mod), Read(*pom.xml)
 ---
 

@@ -1,5 +1,6 @@
 ---
 description: Update and maintain CLAUDE.md and README.md documentation
+model: sonnet
 allowed-tools: Read(*), Write(*), Edit(*), MultiEdit(*), Glob(*), Grep(*), Bash(npm*), Bash(yarn*), Bash(find*), Bash(ls*), WebFetch(*)
 ---
 

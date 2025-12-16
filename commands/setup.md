@@ -1,5 +1,6 @@
 ---
 description: Initial project setup and dependency installation
+model: sonnet
 allowed-tools: Bash(npm install), Bash(yarn install), Bash(pip install), Bash(cargo build), Bash(go mod tidy), Bash(mvn install), Read(*package.json), Read(*requirements.txt), Read(*Cargo.toml), Read(*go.mod), Read(*pom.xml), Read(*README.md)
 ---
 

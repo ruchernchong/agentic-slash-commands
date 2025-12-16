@@ -1,5 +1,6 @@
 ---
 description: Clean up temporary files and build artifacts
+model: sonnet
 allowed-tools: Bash(rm), Bash(find), Bash(du), Bash(ls), Read(*package.json), Read(*.gitignore)
 ---
 

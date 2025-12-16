@@ -1,5 +1,6 @@
 ---
 description: Smart git commit with short, concise messages
+model: sonnet
 allowed-tools: Bash(git status), Bash(git add), Bash(git diff), Bash(git commit), Bash(git log), Bash(git pull)
 ---
 

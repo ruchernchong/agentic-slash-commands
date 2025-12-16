@@ -1,5 +1,6 @@
 ---
 description: Create a GitHub issue with title and description (auto-assigned)
+model: sonnet
 allowed-tools: Bash(gh issue create), Bash(gh issue list), Bash(gh repo view)
 ---
 

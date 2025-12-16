@@ -1,5 +1,6 @@
 ---
 description: Smart build command that detects and runs project builds
+model: sonnet
 allowed-tools: Bash(npm run build), Bash(yarn build), Bash(cargo build), Bash(go build), Bash(mvn compile), Bash(gradle build), Bash(make), Read(*package.json), Read(*Cargo.toml), Read(*go.mod), Read(*pom.xml), Read(*Makefile)
 ---
 
