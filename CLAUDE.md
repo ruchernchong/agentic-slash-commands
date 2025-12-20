@@ -4,9 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a collection of intelligent agentic slash commands designed for multiple AI platforms (Claude Code, Codex, Gemini CLI). Commands are optimised for JavaScript/TypeScript development workflows and use smart detection to identify project configuration and automatically execute appropriate package manager tools (pnpm, bun, yarn, npm) with preference for modern, fast alternatives.
+This is a collection of intelligent agentic capabilities designed for multiple AI platforms (Claude Code, Codex, Gemini CLI). These capabilities are optimised for JavaScript/TypeScript development workflows and use smart detection to identify project configuration and automatically execute appropriate package manager tools (pnpm, bun, yarn, npm) with preference for modern, fast alternatives.
 
-**Multi-Platform Support**: Commands are written once and can be installed across Claude Code, Codex, and Gemini CLI through platform-specific installers.
+**Multi-Platform Support**: Capabilities are written once and can be installed across multiple platforms through platform-specific installers:
+- **Claude Code**: Installed as skills (invoke with `/skill-name`)
+- **Codex**: Installed as prompts
+- **Gemini CLI**: Installed as commands
 
 ## Installation
 
@@ -19,9 +22,9 @@ chmod +x install.sh
 ./install.sh
 ```
 
-The universal installer will set up commands and skills for:
-- **Claude Code**: Symlinks to `$HOME/.claude/commands/` and `$HOME/.claude/skills/`
-- **Codex**: Symlinks to `$HOME/.codex/prompts/`
+The universal installer will set up capabilities for each platform:
+- **Claude Code**: Symlinks skills to `$HOME/.claude/skills/`
+- **Codex**: Symlinks prompts to `$HOME/.codex/prompts/`
 - **Gemini CLI**: Currently disabled (experimental feature)
 
 ### Platform-Specific Installation
@@ -41,10 +44,10 @@ zsh scripts/install-gemini.sh
 
 ### Benefits of Symlink Approach
 - **One-time setup**: Clone once, use everywhere across all platforms
-- **Easy updates**: Run `git pull` to update all commands instantly
-- **Global availability**: Commands work across all projects
-- **No duplication**: Single source of truth for all command definitions
-- **Multi-platform**: Install once, use with Claude Code, Codex, and Gemini CLI
+- **Easy updates**: Run `git pull` to update all capabilities instantly
+- **Global availability**: Works across all projects
+- **No duplication**: Single source of truth for all capability definitions
+- **Multi-platform**: Install once, use with Claude Code (skills), Codex (prompts), and Gemini CLI (commands)
 
 ### Updating
 ```zsh
@@ -56,24 +59,27 @@ The symlinks automatically reflect any updates - no reinstallation needed.
 
 ## Language and Writing Conventions
 
-Commands automatically adapt to the language conventions of the project they're being used in. When executing commands:
+Skills automatically adapt to the language conventions of the project they're being used in. When executing:
 
 - **Infer from project context**: Analyse existing documentation, commit messages, and code comments to detect the project's language variant (US English, UK English, etc.)
 - **Match existing style**: Use the same spelling conventions found in the project (e.g., "organize" vs "organise", "color" vs "colour")
-- **Consistency within project**: Maintain the detected language style throughout command outputs and generated content
+- **Consistency within project**: Maintain the detected language style throughout outputs and generated content
 - **Fallback to project defaults**: If no clear pattern is detected, follow the project's README or contributing guidelines
 
-This ensures commands integrate seamlessly with any project's established conventions.
+This ensures skills integrate seamlessly with any project's established conventions.
 
-## Commands Available
+## Skills Available (Claude Code)
 
-### Core Development Commands
+### User-Invocable Skills
+User-invocable skills are explicitly invoked with `/skill-name` syntax:
+
+#### Core Development
 - `/build` - Intelligent build detection and execution (auto-detects pnpm, bun, yarn, npm)
 - `/test` - Smart test runner (Jest, Vitest, Mocha, etc.)
 - `/lint` - JavaScript/TypeScript linting and formatting (ESLint, Prettier)
 - `/setup` - Automated dependency installation with package manager detection
 
-### Project Management
+#### Project Management
 - `/clean` - Safe cleanup of node_modules, dist/, build/, .pnpm-store, cache files
 - `/commit` - Smart git commit with balanced approach to change grouping
 - `/create-branch` - Create and checkout new git branch with smart validation and GitHub issue integration
@@ -82,25 +88,24 @@ This ensures commands integrate seamlessly with any project's established conven
 - `/update-issue` - Update GitHub issue title, body, labels, or assignees
 - `/update-docs` - Documentation maintenance for CLAUDE.md and README.md files
 
-## Skills Available
+### Helper Skills (Auto-Discovered)
 
-Skills are reusable capabilities that can be invoked programmatically by Claude Code. Unlike slash commands, skills provide specialized functionality that supports and enhances the slash commands in this repository.
+Helper skills are automatically discovered and used by Claude Code to support user-invocable skills. They provide specialized functionality that enhances the capabilities above:
 
-### Core Skills
 - `commit-message-generator` - Generates descriptive commit messages by analyzing staged changes (used by `/commit`)
 - `branch-name-validator` - Validates and suggests branch names following repository conventions (used by `/create-branch`)
 - `pr-description-generator` - Generates pull request descriptions by analyzing commits and changes (used by `/create-pull-request`)
 - `project-structure-analyzer` - Analyzes project structure to detect package managers, build tools, and testing frameworks (used by `/build`, `/test`, `/lint`, `/setup`)
 - `github-integration` - Handles GitHub API interactions for issues and pull requests (used by `/create-issue`, `/create-pull-request`)
 
-## Command Architecture
+## Skills Architecture
 
 ### Directory Structure
-Commands and skills are organised in a modular structure:
+Skills are organised in a modular structure:
 ```
 .
-├── commands/          # All slash command definitions (.md files)
-├── skills/            # Reusable skill definitions (.md files)
+├── commands/          # User-invocable skills (.md files) - invoke with /skill-name
+├── skills/            # Helper skills (.md files) - auto-discovered by Claude Code
 ├── scripts/           # Platform-specific installers and helper scripts
 │   ├── install-claude.sh    # Claude Code installer
 │   ├── install-codex.sh     # Codex installer
@@ -122,40 +127,41 @@ Commands and skills are organised in a modular structure:
 ```
 
 ### Smart Detection System
-Each command follows a pattern of:
+Each skill follows a pattern of:
 1. **Project Detection**: Analyze package.json and lock files (pnpm-lock.yaml, bun.lockb, yarn.lock, package-lock.json)
 2. **Tool Selection**: Prioritize pnpm > bun > yarn > npm based on lock file presence
-3. **Execution**: Run the most suitable command for the environment
+3. **Execution**: Run the most suitable operation for the environment
 4. **Results**: Provide clear output with actionable feedback
 
 ### JavaScript/TypeScript Focus
-Commands automatically handle:
+Skills automatically handle:
 - **Package Managers**: Intelligent detection with preference order: pnpm → bun → yarn → npm
 - **Build Tools**: Webpack, Vite, Rollup, Parcel, Next.js, Nuxt
 - **Testing**: Jest, Vitest, Mocha, Cypress, Playwright
 - **Linting**: ESLint with TypeScript support, Prettier formatting
 - **Frameworks**: React, Vue, Angular, Svelte detection
 
-### Command and Skill Definition Format
-Both commands and skills are defined in markdown files using YAML frontmatter:
+### Skill Definition Format
+All skills are defined in markdown files using YAML frontmatter:
 
-**Commands** (stored in `commands/` directory):
+**User-Invocable Skills** (stored in `commands/` directory):
 ```yaml
 ---
-description: Command description
+description: Skill description (what it does and when to use it)
+model: sonnet  # Optional: specify Claude model
 allowed-tools: List of permitted tools
 ---
 ```
 
-**Skills** (stored in `skills/` directory):
+**Helper Skills** (stored in `skills/` directory):
 ```yaml
 ---
-description: Skill description
+description: Skill description (capability provided)
 allowed-tools: List of permitted tools
 ---
 ```
 
-The format is identical, but skills are designed to be reusable capabilities that can be invoked programmatically, while commands are user-facing slash commands.
+Both types use the same format. User-invocable skills are explicitly invoked with `/skill-name`, while helper skills are automatically discovered by Claude Code based on context.
 
 ## Development Workflow
 
@@ -186,12 +192,12 @@ The format is identical, but skills are designed to be reusable capabilities tha
 - Use `/create-branch` to create new branches with automatic prefix detection (feature/, bugfix/, hotfix/, chore/, docs/)
 - Use `/create-pull-request` for automated PR creation with generated descriptions
 
-**Note**: The `/commit` command is the slash command for Claude Code. There's also a standalone `scripts/commit` bash script that provides similar functionality but can be used independently outside of Claude Code sessions.
+**Note**: The `/commit` skill is invoked within Claude Code. There's also a standalone `scripts/commit` bash script that provides similar functionality but can be used independently outside of Claude Code sessions.
 
 ## Configuration
 
 ### Package.json Integration
-Commands automatically read and execute scripts from package.json using detected package manager:
+Skills automatically read and execute scripts from package.json using detected package manager:
 - `pnpm run build` (preferred) or `bun run build` or `yarn build` or `npm run build`
 - `pnpm test` (preferred) or `bun test` or `yarn test` or `npm test`
 - `pnpm run lint` (preferred) or `bun run lint` or `yarn lint` or `npm run lint`

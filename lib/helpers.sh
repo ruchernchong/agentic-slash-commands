@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Shared installation helper functions for agentic slash commands
+# Shared installation helper functions for agentic capabilities
 # Source this file in platform-specific installation scripts
 
 # Colors for output

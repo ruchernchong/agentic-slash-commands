@@ -11,26 +11,28 @@
 
 </div>
 
-A collection of intelligent slash commands for AI coding assistants
+A collection of intelligent capabilities for AI coding assistants
 including [Claude Code](https://claude.ai/code), [Codex](https://openai.com/codex/),
 and [Gemini CLI](https://github.com/google-gemini/gemini-cli). Optimised for JavaScript/TypeScript development
-workflows, each command uses smart detection to identify project configuration and automatically execute appropriate
+workflows with smart detection to identify project configuration and automatically execute appropriate
 tools with your preferred package manager.
 
-**🚀 Multi-Platform Support**: Write commands once, use them across Claude Code, Codex, and Gemini CLI with
-platform-specific installers.
+**🚀 Multi-Platform Support**: Write once, use across all platforms with platform-specific terminology:
+- **Claude Code**: Skills (invoke with `/skill-name`)
+- **Codex**: Prompts
+- **Gemini CLI**: Commands
 
 ## ✨ Features
 
-- 🎯 **Multi-Platform Support**: Compatible with Claude Code, Codex, and Gemini CLI
+- 🎯 **Multi-Platform Support**: Compatible with Claude Code (skills), Codex (prompts), and Gemini CLI (commands)
 - 📦 **Smart Package Manager Detection**: Automatically detects and uses pnpm, bun, yarn, or npm based on lock files
 - ⚡ **Framework Aware**: Recognises and adapts to React, Vue, Next.js, Nuxt, and more
 - 🎨 **Zero Configuration**: Works out of the box with standard JavaScript/TypeScript projects
 - 🚀 **Universal Installation**: One command installs for all supported platforms
-- 🐳 **Docker-Based Testing**: Comprehensive test suite validates commands across platforms
+- 🐳 **Docker-Based Testing**: Comprehensive test suite validates across platforms
 - 🔄 **CI/CD Integration**: Automated testing with GitHub Actions ensures quality
 
-## 📋 Available Commands
+## 📋 Available Capabilities
 
 ### 🛠️ Core Development
 
@@ -80,42 +82,42 @@ platform-specific installers.
   - Updates CLAUDE.md and README.md
   - Keeps documentation in sync
 
-## 🎯 Available Skills
+## 🎯 Helper Skills (Claude Code)
 
-Skills are reusable capabilities that can be invoked programmatically by Claude Code. Unlike slash commands, skills provide specialized functionality that supports and enhances the slash commands in this repository.
+Helper skills are automatically discovered by Claude Code to support the user-invocable skills listed above. They provide specialized functionality that enhances capabilities.
 
-### 🧠 Core Skills
+### 🧠 Core Helper Skills
 
 - **`commit-message-generator`** - Smart commit message generation
   - Analyzes staged changes to generate descriptive messages
   - Follows conventional commit format and repository patterns
-  - Used by `/commit` command
+  - Used by `/commit` skill
 
 - **`branch-name-validator`** - Branch naming validation
   - Validates and suggests branch names following conventions
   - Integrates with GitHub issues
-  - Used by `/create-branch` command
+  - Used by `/create-branch` skill
 
 - **`pr-description-generator`** - Pull request description generation
   - Analyzes commit history to generate comprehensive PR descriptions
   - Creates test plans and categorizes changes
-  - Used by `/create-pull-request` command
+  - Used by `/create-pull-request` skill
 
 - **`project-structure-analyzer`** - Project configuration analysis
   - Detects package managers, build tools, and testing frameworks
-  - Provides structure information for intelligent command execution
-  - Used by `/build`, `/test`, `/lint`, and `/setup` commands
+  - Provides structure information for intelligent execution
+  - Used by `/build`, `/test`, `/lint`, and `/setup` skills
 
 - **`github-integration`** - GitHub API integration
   - Handles issue and pull request creation via GitHub CLI
   - Processes templates and manages repository interactions
-  - Used by `/create-issue` and `/create-pull-request` commands
+  - Used by `/create-issue` and `/create-pull-request` skills
 
 ## 💻 Installation
 
 ### 🌐 Universal Installation (All Platforms)
 
-Install commands for Claude Code, Codex, and Gemini CLI in one step:
+Install for Claude Code, Codex, and Gemini CLI in one step:
 
 ```zsh
 git clone https://github.com/ruchernchong/agentic-slash-commands.git $HOME/agentic-slash-commands
@@ -126,11 +128,11 @@ chmod +x install.sh
 
 The universal installer will:
 
-- Install commands and skills for **Claude Code** (`$HOME/.claude/commands/` and `$HOME/.claude/skills/`)
-- Install commands for **Codex** (`$HOME/.codex/prompts/`)
+- Install skills for **Claude Code** (`$HOME/.claude/skills/`)
+- Install prompts for **Codex** (`$HOME/.codex/prompts/`)
 - Install commands for **Gemini CLI** (currently disabled - experimental feature)
 
-Commands and skills will be immediately available globally across all projects.
+Capabilities will be immediately available globally across all projects.
 
 ### 🎯 Platform-Specific Installation
 

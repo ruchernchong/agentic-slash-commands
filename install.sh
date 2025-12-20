@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Universal installer for agentic slash commands
-# Installs commands for Claude Code and Codex (Gemini CLI disabled)
+# Universal installer for agentic capabilities
+# Installs skills for Claude Code, prompts for Codex (Gemini CLI disabled)
 
 set -e
 
@@ -12,20 +12,20 @@ source "$SCRIPT_DIR/lib/helpers.sh"
 COMMANDS_DIR="$SCRIPT_DIR/commands"
 
 echo -e "${BLUE}╔═══════════════════════════════════════════════╗${NC}"
-echo -e "${BLUE}║  Agentic Slash Commands - Universal Installer ║${NC}"
+echo -e "${BLUE}║    Agentic Capabilities - Universal Installer ║${NC}"
 echo -e "${BLUE}╚═══════════════════════════════════════════════╝${NC}"
 echo ""
 
-# Display warning about overwriting existing commands
-echo -e "${YELLOW}⚠️  WARNING: This installer will overwrite existing commands and skills!${NC}"
-echo -e "${YELLOW}   We will attempt to backup your existing slash commands before overwriting.${NC}"
+# Display warning about overwriting
+echo -e "${YELLOW}⚠️  WARNING: This installer will overwrite existing capabilities!${NC}"
+echo -e "${YELLOW}   We will attempt to backup before overwriting.${NC}"
 echo -e "${YELLOW}   Backups will be saved with a .bak extension.${NC}"
 echo -e "${YELLOW}   Do note that this is not guaranteed and you should have your own backup.${NC}"
 echo ""
 echo -e "${YELLOW}   Target directories:${NC}"
-echo -e "${YELLOW}     • ~/.claude/commands/ and ~/.claude/skills/ (Claude Code)${NC}"
-echo -e "${YELLOW}     • ~/.codex/prompts/ (Codex)${NC}"
-echo -e "${YELLOW}     • ~/.gemini/commands/ (Gemini CLI)${NC}"
+echo -e "${YELLOW}     • ~/.claude/skills/ (Claude Code skills)${NC}"
+echo -e "${YELLOW}     • ~/.codex/prompts/ (Codex prompts)${NC}"
+echo -e "${YELLOW}     • ~/.gemini/commands/ (Gemini CLI commands)${NC}"
 echo ""
 
 # Ask if user wants to continue
@@ -100,11 +100,11 @@ done
 
 if [ ${#SELECTED_COMMANDS[@]} -eq 0 ]; then
     echo ""
-    echo -e "${RED}✗ No slash commands found in ${COMMANDS_DIR}.${NC}"
+    echo -e "${RED}✗ No capability files found in ${COMMANDS_DIR}.${NC}"
     exit 1
 fi
 
-echo -e "${BLUE}Installing all ${#SELECTED_COMMANDS[@]} slash commands...${NC}"
+echo -e "${BLUE}Installing all ${#SELECTED_COMMANDS[@]} capabilities...${NC}"
 echo ""
 
 echo ""
@@ -174,16 +174,16 @@ echo ""
 # Show next steps only for installed platforms
 echo -e "${BLUE}Next steps:${NC}"
 if [ "$INSTALL_CLAUDE" = true ]; then
-    echo -e "${BLUE}  • Claude Code: Ready to use${NC}"
+    echo -e "${BLUE}  • Claude Code: Skills ready (invoke with /skill-name)${NC}"
 fi
 if [ "$INSTALL_CODEX" = true ]; then
-    echo -e "${BLUE}  • Codex: Ready to use${NC}"
+    echo -e "${BLUE}  • Codex: Prompts ready to use${NC}"
 fi
 if [ "$INSTALL_GEMINI" = true ]; then
-    echo -e "${BLUE}  • Gemini CLI: Convert commands to .toml format${NC}"
+    echo -e "${BLUE}  • Gemini CLI: Convert to .toml format${NC}"
 fi
 echo ""
-echo -e "${BLUE}💡 To update commands across all platforms:${NC}"
+echo -e "${BLUE}💡 To update across all platforms:${NC}"
 echo -e "${BLUE}   cd ${SCRIPT_DIR} && git pull && bash install.sh${NC}"
 
 exit 0

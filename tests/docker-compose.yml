@@ -15,12 +15,12 @@ services:
         bash scripts/install-claude.sh &&
         echo '' &&
         echo '=== Verification ===' &&
-        echo 'Commands installed:' &&
-        ls -la ~/.claude/commands/ | grep -E '^l' | wc -l | xargs echo 'Total symlinks:' &&
+        echo 'Skills installed:' &&
+        ls -la ~/.claude/skills/ | grep -E '^l' | wc -l | xargs echo 'Total symlinks:' &&
         echo '' &&
         echo 'Sample symlinks:' &&
-        (cd ~/.claude/commands/ && pwd) &&
-        ls -la ~/.claude/commands/ | grep -E '^l' | head -3
+        (cd ~/.claude/skills/ && pwd) &&
+        ls -la ~/.claude/skills/ | grep -E '^l' | head -3
       "
 
   # Test Codex installation only
@@ -66,9 +66,9 @@ services:
         bash scripts/install-codex.sh > /dev/null 2>&1 &&
         echo '' &&
         echo '=== Verification ===' &&
-        echo 'Claude Code commands:' &&
-        ls -la ~/.claude/commands/ 2>/dev/null | grep -c '^l' | xargs echo '  Symlinks:' &&
-        echo 'Codex commands:' &&
+        echo 'Claude Code skills:' &&
+        ls -la ~/.claude/skills/ 2>/dev/null | grep -c '^l' | xargs echo '  Symlinks:' &&
+        echo 'Codex prompts:' &&
         ls -la ~/.codex/prompts/ 2>/dev/null | grep -c '^l' | xargs echo '  Symlinks:' &&
         exit 0
       "
@@ -95,7 +95,7 @@ services:
         echo 'Second install completed' &&
         echo '' &&
         echo '=== Verification ===' &&
-        ls -la ~/.claude/commands/ 2>/dev/null | grep -c '^l' | xargs echo 'Claude symlinks:' &&
+        ls -la ~/.claude/skills/ 2>/dev/null | grep -c '^l' | xargs echo 'Claude symlinks:' &&
         ls -la ~/.codex/prompts/ 2>/dev/null | grep -c '^l' | xargs echo 'Codex symlinks:' &&
         exit 0
       "
@@ -117,7 +117,7 @@ services:
         echo 'Checking all symlinks point to valid files...' &&
         echo '' &&
         all_valid=true
-        for file in ~/.claude/commands/*.md; do
+        for file in ~/.claude/skills/*.md; do
           if [ -L \"$$file\" ]; then
             target=$$(readlink \"$$file\")
             if [ -f \"$$target\" ]; then
@@ -153,13 +153,13 @@ services:
         echo '' &&
         echo 'Testing main installer warning...' &&
         output=$$(echo 'n' | bash install.sh 2>&1) &&
-        if echo \"$$output\" | grep -q 'WARNING: This installer will overwrite existing commands'; then
+        if echo \"$$output\" | grep -q 'WARNING: This installer will overwrite existing capabilities'; then
           echo '✓ Main installer shows overwrite warning'
         else
           echo '✗ Main installer missing overwrite warning'
           exit 1
         fi &&
-        if echo \"$$output\" | grep -q 'We will attempt to backup your existing slash commands'; then
+        if echo \"$$output\" | grep -q 'We will attempt to backup'; then
           echo '✓ Main installer mentions backup functionality'
         else
           echo '✗ Main installer missing backup message'
@@ -174,7 +174,7 @@ services:
         echo '' &&
         echo 'Testing Claude Code installer warning...' &&
         output=$$(bash scripts/install-claude.sh 2>&1) &&
-        if echo \"$$output\" | grep -q 'WARNING: Existing commands'; then
+        if echo \"$$output\" | grep -q 'WARNING: Existing skills'; then
           echo '✓ Claude Code installer shows warning'
         else
           echo '✗ Claude Code installer missing warning'
@@ -234,31 +234,31 @@ services:
         echo '=== Testing Backup Functionality ===' &&
         echo '' &&
         echo 'Setting up test environment...' &&
-        mkdir -p ~/.claude/commands &&
+        mkdir -p ~/.claude/skills &&
         mkdir -p ~/.codex/prompts &&
         echo '' &&
         echo '--- Test 1: First backup (should create .bak files) ---' &&
         echo 'Creating dummy files to be backed up...' &&
-        echo 'custom command 1' > ~/.claude/commands/build.md &&
-        echo 'custom command 2' > ~/.claude/commands/test.md &&
-        echo 'custom command 3' > ~/.codex/prompts/lint.md &&
+        echo 'custom skill 1' > ~/.claude/skills/build.md &&
+        echo 'custom skill 2' > ~/.claude/skills/test.md &&
+        echo 'custom prompt 3' > ~/.codex/prompts/lint.md &&
         echo '' &&
         echo 'Running Claude Code installer...' &&
         output=$$(bash scripts/install-claude.sh 2>&1) &&
         echo '' &&
-        if [ -f ~/.claude/commands/build.md.bak ]; then
+        if [ -f ~/.claude/skills/build.md.bak ]; then
           echo '✓ First backup created: build.md.bak'
         else
           echo '✗ First backup NOT created: build.md.bak'
           exit 1
         fi &&
-        if [ -f ~/.claude/commands/test.md.bak ]; then
+        if [ -f ~/.claude/skills/test.md.bak ]; then
           echo '✓ First backup created: test.md.bak'
         else
           echo '✗ First backup NOT created: test.md.bak'
           exit 1
         fi &&
-        if grep -q 'custom command 1' ~/.claude/commands/build.md.bak; then
+        if grep -q 'custom skill 1' ~/.claude/skills/build.md.bak; then
           echo '✓ Backup contains original content'
         else
           echo '✗ Backup does NOT contain original content'
@@ -273,21 +273,21 @@ services:
         echo '' &&
         echo '--- Test 2: Second backup (should create timestamped .bak files) ---' &&
         echo 'Creating new dummy files...' &&
-        rm ~/.claude/commands/build.md &&
-        echo 'custom command UPDATED' > ~/.claude/commands/build.md &&
+        rm ~/.claude/skills/build.md &&
+        echo 'custom skill UPDATED' > ~/.claude/skills/build.md &&
         sleep 1 &&
         echo '' &&
         echo 'Running installer again...' &&
         bash scripts/install-claude.sh >/dev/null 2>&1 &&
         echo '' &&
-        bak_count=$$(ls ~/.claude/commands/build.md.bak* 2>/dev/null | wc -l) &&
+        bak_count=$$(ls ~/.claude/skills/build.md.bak* 2>/dev/null | wc -l) &&
         if [ \"$$bak_count\" -ge 2 ]; then
           echo \"✓ Multiple backups exist ($$bak_count files)\"
         else
           echo \"✗ Second backup NOT created (only $$bak_count file)\"
           exit 1
         fi &&
-        timestamped_backup=$$(ls ~/.claude/commands/build.md.bak.* 2>/dev/null | head -1) &&
+        timestamped_backup=$$(ls ~/.claude/skills/build.md.bak.* 2>/dev/null | head -1) &&
         if [ -n \"$$timestamped_backup\" ]; then
           echo \"✓ Timestamped backup created: $$(basename \"$$timestamped_backup\")\"
         else
